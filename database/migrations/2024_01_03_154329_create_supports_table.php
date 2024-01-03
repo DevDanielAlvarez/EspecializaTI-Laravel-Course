@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('supports', function (Blueprint $table) {
             $table->id();
+            $table->string('subject');
+            $table->text('body');
+            $table->enum('status',['active','pending','closed'])->default('open');
             $table->timestamps();
         });
     }
