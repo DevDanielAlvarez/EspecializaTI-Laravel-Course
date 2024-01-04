@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class SupportController extends Controller
 {
-    protected string $viewPath = "admin/support/";
+    protected string $viewDiretoryPath = "admin/support/";
     /**
      * return all supports
      */
@@ -17,7 +17,13 @@ class SupportController extends Controller
 
         $allSupports = $supportModel->all();
 
-        return view($this->viewPath.'index', compact('allSupports'));
+        return view($this->viewDiretoryPath.'index', compact('allSupports'));
+
+    }
+
+    public function create(){
+
+        return view($this->viewDiretoryPath.'/create');
 
     }
 }

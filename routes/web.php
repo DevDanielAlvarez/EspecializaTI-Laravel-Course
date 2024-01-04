@@ -14,7 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/support',[SupportController::class, 'index'])->name('support.index');
+Route::prefix('/support')->group(function(){
+
+    Route::get('/',[SupportController::class, 'index'])->name('support.index');
+
+    Route::get('/create',[SupportController::class,'create'])->name('support.create');
+
+});
+
+
 
 Route::get('/', function () {
     return view('welcome');
