@@ -1,5 +1,7 @@
 <h1>teste de support</h1>
 
+<a href="{{ route('support.create') }}">Create a new support</a>
+
 <table>
     <thead>
         <th>Id</th>

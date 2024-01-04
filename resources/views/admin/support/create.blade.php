@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>New Support</h1>
-
+    <a href="{{ route('support.index') }}"> View all supports</a>
     <form action="" method="POST">
         <input
         type="text" placeholder="subject"
