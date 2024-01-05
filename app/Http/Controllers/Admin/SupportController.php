@@ -27,14 +27,14 @@ class SupportController extends Controller
 
     }
 
-    public function store(Request $formRequest){
-
-        $defaultStatusValue = 'active';
+    public function store(Request $formRequest, Support $supportModel){
 
         $dataRequest = $formRequest->all();
 
-        $dataRequest['status'] = $defaultStatusValue;
+        $supportModel->create($dataRequest);
 
-        Support::create($dataRequest);
+        return redirect()->route('support.index');
+
+
     }
 }
