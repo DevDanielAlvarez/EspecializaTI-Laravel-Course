@@ -9,7 +9,8 @@
 <body>
     <h1>New Support</h1>
     <a href="{{ route('support.index') }}"> View all supports</a>
-    <form action="" method="POST">
+    <form action="{{ route('support.store') }}" method="POST">
+        @csrf
         <input
         type="text" placeholder="subject"
         name="subject"

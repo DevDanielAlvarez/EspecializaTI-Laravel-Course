@@ -26,4 +26,15 @@ class SupportController extends Controller
         return view($this->viewDiretoryPath.'/create');
 
     }
+
+    public function store(Request $formRequest){
+
+        $defaultStatusValue = 'active';
+
+        $dataRequest = $formRequest->all();
+
+        $dataRequest['status'] = $defaultStatusValue;
+
+        Support::create($dataRequest);
+    }
 }

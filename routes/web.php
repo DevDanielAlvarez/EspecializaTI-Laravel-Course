@@ -20,8 +20,9 @@ Route::prefix('/support')->group(function(){
 
     Route::get('/create',[SupportController::class,'create'])->name('support.create');
 
-});
+    Route::post('/store',[SupportController::class,'store'])->name('support.store');
 
+});
 
 
 Route::get('/', function () {
