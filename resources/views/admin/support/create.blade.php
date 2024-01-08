@@ -8,14 +8,23 @@
 </head>
 <body>
     <h1>New Support</h1>
+
+    @if($errors->any())
+        @foreach ($errors->all() as $error)
+
+        <span>{{$error}}</span><br>
+
+        @endforeach
+    @endif
+
     <a href="{{ route('support.index') }}"> View all supports</a>
     <form action="{{ route('support.store') }}" method="POST">
         @csrf
         <input
         type="text" placeholder="subject"
-        name="subject"
+        name="subject" value="{{old('subject')}}"
         >
-        <textarea name="body" cols="30" rows="10"></textarea>
+        <textarea name="body" cols="30" rows="10">{{old('body')}}</textarea>
         <button type="submit">Submit</button>
 
 

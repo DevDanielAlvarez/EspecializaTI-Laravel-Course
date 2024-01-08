@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUpdateSupportRequest;
 use App\Models\Support;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\{RedirectResponse, Request};
@@ -28,7 +29,7 @@ class SupportController extends Controller
         return view($this->viewFolderPath . '/create');
     }
 
-    public function store(Request $formRequest, Support $supportModel): RedirectResponse
+    public function store(StoreUpdateSupportRequest $formRequest, Support $supportModel): RedirectResponse
     {
 
         $dataRequest = $formRequest->all();
