@@ -17,6 +17,19 @@
                 <td>{{ $support->subject }}</td>
                 <td>{{ $support->body }}</td>
                 <td>{{ $support->status }}</td>
+                <td>
+                    <a href="{{route('support.show',$support->id)}}">View Details</a>
+                </td>
+                <td>
+                    <a href="{{route('support.edit',$support->id)}}">Edit</a>
+                </td>
+                <td>
+                    <form action="{{route('support.destroy',$support->id)}}" method="POST">
+                        @csrf
+                        @method('delete')
+                        <input type="submit" value="deletar">
+                    </form>
+                </td>
                 <td> > </td>
             </tr>
 
