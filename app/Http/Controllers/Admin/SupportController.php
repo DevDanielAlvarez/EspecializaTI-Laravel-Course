@@ -55,7 +55,7 @@ class SupportController extends Controller
         return view($this->viewFolderPath . 'edit', compact('supportFound'));
     }
 
-    public function update(Request $formRequest, string|int $id):RedirectResponse{
+    public function update(StoreUpdateSupportRequest $formRequest, string|int $id):RedirectResponse{
 
         $supportFound = Support::findOrFail($id);
 
@@ -69,7 +69,7 @@ class SupportController extends Controller
         // $supportFound->save();
 
 
-        $supportFound->update($formRequest->only(['subject','body']));
+        $supportFound->update($formRequest->validated());
 
         return redirect()->route('support.index');
 

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreUpdateSupportRequest extends FormRequest
 {
@@ -21,19 +22,24 @@ class StoreUpdateSupportRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'subject' => [
-                'min:3',
-                'max:200',
-                'required',
-                'unique:supports'
-            ],
 
-            'body' => [
-                'min:3',
-                'max:10000',
-                'required'
-            ]
-        ];
+            return  [
+                'subject' => [
+                    'min:3',
+                    'max:200',
+                    'required',
+
+                    // "unique:supports,subject,{$this->id},id",
+
+                    // unique:table,column,except,id ex:(exceto quando 8 for  o id)
+                    Rule::unique('supports','subject')->ignore($this->id),
+                ],
+
+                'body' => [
+                    'min:3',
+                    'max:10000',
+                    'required'
+                ]
+            ];
     }
 }

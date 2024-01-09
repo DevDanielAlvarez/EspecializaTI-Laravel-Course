@@ -9,6 +9,12 @@
 </head>
 
 <body>
+
+    @if($errors->any())
+        @foreach($errors->all() as $error)
+            <span>{{$error}}</span>
+            @endforeach
+    @endif
     <form action="{{route('support.update',$supportFound->id)}}" method="POST">
 
         @csrf
