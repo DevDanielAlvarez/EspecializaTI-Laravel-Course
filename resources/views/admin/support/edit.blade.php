@@ -10,6 +10,7 @@
 
 <body>
 
+    <h1>Edit a Support</h1>
     @if($errors->any())
         @foreach($errors->all() as $error)
             <span>{{$error}}</span>
@@ -17,12 +18,12 @@
     @endif
     <form action="{{route('support.update',$supportFound->id)}}" method="POST">
 
-        @csrf
+
         @method('PUT')
 
-        <input name="subject" placeholder="subject" value="{{$supportFound->subject}}" >
-
-        <textarea name="body" placeholder="body">{{$supportFound->body}}</textarea>
+       @include('admin/support/partials/inputsForm',[
+            'supportFound' => $supportFound
+       ])
 
         <input type="submit" value="Atualizar" >
 

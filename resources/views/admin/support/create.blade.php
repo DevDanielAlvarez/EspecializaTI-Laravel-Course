@@ -19,12 +19,9 @@
 
     <a href="{{ route('support.index') }}"> View all supports</a>
     <form action="{{ route('support.store') }}" method="POST">
-        @csrf
-        <input
-        type="text" placeholder="subject"
-        name="subject" value="{{old('subject')}}"
-        >
-        <textarea name="body" cols="30" rows="10">{{old('body')}}</textarea>
+
+        @include('admin/support/partials/inputsForm')
+
         <button type="submit">Submit</button>
 
 
