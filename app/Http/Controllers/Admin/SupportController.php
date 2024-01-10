@@ -2,24 +2,30 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DTO\Support\StoreSupportDTO;
+use App\DTO\Support\UpdateSupportDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateSupportRequest;
 use App\Models\Support;
+use App\Services\SupportService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\{RedirectResponse, Request};
-
+use stdClass;
 
 class SupportController extends Controller
 {
     protected string $viewFolderPath = "admin/support/";
+
+    public function __construct(protected SupportService $service)
+    {}
+
     /**
      * return all supports
      */
-    public function index(Support $supportModel): View
+    public function index(): View
     {
 
-        $allSupports = $supportModel->all();
-
+        $allSupports = $this->service->all();
         return view($this->viewFolderPath . 'index', compact('allSupports'));
     }
 
@@ -29,36 +35,36 @@ class SupportController extends Controller
         return view($this->viewFolderPath . '/create');
     }
 
-    public function store(StoreUpdateSupportRequest $formRequest, Support $supportModel): RedirectResponse
+    public function store(StoreUpdateSupportRequest $formRequest): RedirectResponse
     {
-
-        $dataRequest = $formRequest->all();
-
-        $supportModel->create($dataRequest);
+        $this->service->store(
+            StoreSupportDTO::makeFromRequest($formRequest)
+        );
 
         return redirect()->route('support.index');
     }
 
-    public function show(string|int $id): View
+    public function show(string $id): View | RedirectResponse
     {
 
-        // $dataSupport = Support::where('id' , $id)->first();
-        $dataSupport = Support::findOrfail($id);
+        // $supportFound = Support::where('id' , $id)->first();
+        if(!$supportFound = $this->service->find($id)){
+            return back();
+        }
 
-        return view($this->viewFolderPath . 'show', compact('dataSupport'));
+        return view($this->viewFolderPath . 'show', compact('supportFound'));
     }
 
-    public function edit(string | int $id): View
+    public function edit(string $id): View | RedirectResponse
     {
-        $supportFound = Support::findOrFail($id);
+        if(!$supportFound = $this->service->find($id)){
+            return back();
+        }
 
         return view($this->viewFolderPath . 'edit', compact('supportFound'));
     }
 
-    public function update(StoreUpdateSupportRequest $formRequest, string|int $id):RedirectResponse{
-
-        $supportFound = Support::findOrFail($id);
-
+    public function update(StoreUpdateSupportRequest $formRequest, string $id):stdClass|RedirectResponse{
 
         //funciona para store e update
 
@@ -68,8 +74,9 @@ class SupportController extends Controller
 
         // $supportFound->save();
 
-
-        $supportFound->update($formRequest->validated());
+        $this->service->update(
+           UpdateSupportDTO::makeFromRequest($formRequest)
+        );
 
         return redirect()->route('support.index');
 
@@ -77,9 +84,7 @@ class SupportController extends Controller
 
     public function destroy(Request $request):RedirectResponse{
 
-        $supportFound = Support::findOrFail($request->id);
-
-        $supportFound->delete();
+        $this->service->destroy($request->id);
 
         return redirect()->route('support.index');
     }

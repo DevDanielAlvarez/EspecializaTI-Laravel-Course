@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>{{ $dataSupport->subject }}</h1>
-    <p>{{ $dataSupport->body }}</p>
+    <h1>{{ $supportFound->subject }}</h1>
+    <p>{{ $supportFound->body}}</p>
 </body>
 </html>
