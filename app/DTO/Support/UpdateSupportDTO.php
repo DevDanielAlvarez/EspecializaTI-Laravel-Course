@@ -13,7 +13,9 @@ class UpdateSupportDTO{
             $request->id,
             $request->subject,
             $request->body,
-            $request->status
+
+            $request->status ? $request->status : 'active'
+
         );
     }
 

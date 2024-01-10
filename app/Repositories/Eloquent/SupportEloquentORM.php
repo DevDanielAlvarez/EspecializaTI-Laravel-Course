@@ -58,8 +58,9 @@ class SupportEloquentORM implements SupportRepositoryInterface{
         return (object) $supportFound->toArray();
     }
 
-    public function destroy(string $id): void{
-        $this->model->findOrFail($id)->destroy();
+    public function destroy(string $id): bool{
+
+        return $this->model->findOrFail($id)->delete();
     }
 
 }

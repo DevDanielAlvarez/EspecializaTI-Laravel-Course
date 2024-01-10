@@ -16,6 +16,6 @@ interface SupportRepositoryInterface{
 
     public function update(UpdateSupportDTO $dto): stdClass | null;
 
-    public function destroy(string $id): void;
+    public function destroy(string $id): bool;
 
 }

@@ -82,9 +82,10 @@ class SupportController extends Controller
 
     }
 
-    public function destroy(Request $request):RedirectResponse{
+    public function destroy(string $id):RedirectResponse{
 
-        $this->service->destroy($request->id);
+
+        $this->service->destroy($id);
 
         return redirect()->route('support.index');
     }
